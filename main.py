@@ -24,10 +24,14 @@ class TradingFramework():
         config.read(config_file_path)
         
         #general
+        for option in config.options('general'):
+            setattr(self,option,literal_eval(config.get('general', option)))
     
         #backtesting
         for option in config.options('backtesting'):
             setattr(self.backtest,option,literal_eval(config.get('backtesting', option)))
             
-        print(self.backtest.start_cash)
+        self.backtest.tickers_to_observe=self.tickers_to_observe
+        
+        print(self.backtest.tickers_to_observe)
     
